@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useFetchDetails from '../hooks/useFetchDetails';
 import { useSelector } from 'react-redux';
@@ -6,11 +6,14 @@ import moment from 'moment';
 import Divider from '../components/Divider';
 import HorizontalScrollCard from '../components/HorizontalScrollCard';
 import useFetch from '../hooks/useFetch';
+import VideoPlayer from '../components/VideoPlayer';
 
 const DetailsPage = () => {
 
   const params = useParams();
   const imageURL = useSelector(state => state.nrlflixData.imageURL);
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideoId, setPlayVideoId] = useState("");
 
   const { data } = useFetchDetails(`/${params?.explore}/${params?.id}`);
   const { data: castData } = useFetchDetails(`/${params?.explore}/${params?.id}/credits`);
@@ -20,6 +23,11 @@ const DetailsPage = () => {
   const duration = `${Math.floor(data?.runtime / 60)}h ${data?.runtime % 60}m`;
   const director = castData?.crew?.filter(el => el.job === "Director").map(el => el?.name)?.join(", ");
   const writer = castData?.crew?.filter(el => el.job === "Writer").map(el => el?.name)?.join(", ");
+
+  const handlePlayVideo = (data) => {
+    setPlayVideoId(data);
+    setPlayVideo(true);
+  };
 
   return (
     <div>
@@ -41,6 +49,7 @@ const DetailsPage = () => {
             alt={imageURL + data?.poster_path}
             className='h-80 w-60 object-cover rounded'
           />
+          <button onClick={() => handlePlayVideo(data)} className='mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gradient-to-l from-red-700 to-orange-500 shadow-md transition-all hover:scale-105'>Play Now</button>
         </div>
 
         <div>
@@ -140,6 +149,12 @@ const DetailsPage = () => {
         <HorizontalScrollCard data={similar} heading={`Similar ${params?.explore}`} media_type={params?.explore} />
         <HorizontalScrollCard data={recommendations} heading={`Recommended ${params?.explore}`} media_type={params?.explore} />
       </div>
+
+      {
+        playVideo && (
+          <VideoPlayer data={playVideoId} close={() => setPlayVideo(false)} media_type={params?.explore} />
+        )
+      }
 
     </div>
   );

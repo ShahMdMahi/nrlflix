@@ -72,7 +72,7 @@ const BannerHome = () => {
                       <span>|</span>
                       <p>View: {Number(data.popularity).toFixed(0)}+</p>
                     </div>
-                    <button className='bg-white px-4 py-2 text-black font-bold rounded mt-3 hover:bg-gradient-to-l from-red-700 to-orange-500 shadow-md transition-all hover:scale-105'>Play Now</button>
+                    {/* <button className='bg-white px-4 py-2 text-black font-bold rounded mt-3 hover:bg-gradient-to-l from-red-700 to-orange-500 shadow-md transition-all hover:scale-105'>Play Now</button> */}
                   </div>
                 </div>
 
@@ -80,6 +80,9 @@ const BannerHome = () => {
             )
           })
         }
+
+
+
       </div>
     </section>
   );

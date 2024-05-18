@@ -5,11 +5,11 @@ const Footer = () => {
   return (
     <footer className='text-center bg-neutral-600 bg-opacity-35 text-neutral-400 py-2'>
       <div className='flex items-center justify-center gap-4'>
-      <Link to={"/"}>About</Link>
-      <Link to={"/"}>Contact</Link>
+      <Link to={"https://shahmdmahi.vercel.app"}>About</Link>
+      <Link to={"mailto:shahmdmahi13@gmail.com"}>Contact</Link>
       </div>
 
-      <p className='text-sm'>Created by Shah Md. Mahi from NRLIT</p>
+      <p className='text-sm'>Created by Shah Md. Mahi</p>
     </footer>
   );
 }
